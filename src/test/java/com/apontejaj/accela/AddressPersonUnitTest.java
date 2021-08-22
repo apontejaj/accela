@@ -43,5 +43,26 @@ public class AddressPersonUnitTest {
 		assertThat(a2.getPersons()).hasSize(1).contains(person);
 
 	}
+	
+	@Test
+	public void should_add_an_address_to_an_existing_person() {
+
+		Person person = new Person("Amilcar", "Aponte");
+		personRepository.save(person);
+		
+		Address a1 = new Address("5th Av", "New York", "NY", "123456");
+		a1.addPerson(person);
+		person.addAddress(a1);
+		
+		a1 = addressRepository.save(a1);
+		person = personRepository.save(person);
+		
+		
+		assertThat(person.getAddresses()).hasSize(1).contains(a1);
+		assertThat(a1.getPersons()).hasSize(1).contains(person);
+
+
+	}
+	
 
 }
