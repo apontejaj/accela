@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +27,7 @@ public class Person {
     private String firstName;
     private String lastName;
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "person_address",
     		   joinColumns = @JoinColumn(name = "person_id"), 
     		   inverseJoinColumns = @JoinColumn(name = "address_id"))
@@ -105,6 +106,10 @@ public class Person {
 	
 	public void addAddress(Address address) {
 		this.addresses.add(address);
+	}
+	
+	public void removeAddress(Address address) {
+		this.addresses.remove(address);
 	}
 
 	@Override

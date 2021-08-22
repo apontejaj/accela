@@ -51,6 +51,7 @@ public class AddressPersonUnitTest {
 		person = personRepository.save(person);
 		
 		Address a1 = new Address("5th Av", "New York", "NY", "123456");
+		
 		a1.addPerson(person);
 		person.addAddress(a1);
 		
@@ -61,6 +62,30 @@ public class AddressPersonUnitTest {
 		assertThat(person.getAddresses()).hasSize(1).contains(a1);
 		assertThat(a1.getPersons()).hasSize(1).contains(person);
 
+
+	}
+	
+	@Test
+	public void should_delete_an_address_from_existing_person() {
+
+		Person person = new Person("Amilcar", "Aponte");
+		person = personRepository.save(person);
+		
+		Address a1 = new Address("5th Av", "New York", "NY", "123456");
+		
+		a1.addPerson(person);
+		person.addAddress(a1);
+		
+		a1 = addressRepository.save(a1);
+		person = personRepository.save(person);
+		
+		person.removeAddress(a1);
+		
+		addressRepository.deleteById(a1.getId());
+		personRepository.save(person);
+
+		assertThat(person.getAddresses()).hasSize(0);
+		assertThat(addressRepository.count()).isEqualTo(0);
 
 	}
 	
