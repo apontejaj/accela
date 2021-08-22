@@ -106,10 +106,12 @@ public class Person {
 	
 	public void addAddress(Address address) {
 		this.addresses.add(address);
+		address.addPerson(this);
 	}
 	
 	public void removeAddress(Address address) {
 		this.addresses.remove(address);
+		address.removePerson(this);
 	}
 
 	@Override

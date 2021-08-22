@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +27,7 @@ public class Address {
     private String state;
     private String postalCode;
     
-    @ManyToMany(mappedBy = "addresses")
+    @ManyToMany(mappedBy = "addresses", fetch = FetchType.EAGER)
     Set<Person> persons;
     
     /**
@@ -104,6 +105,10 @@ public class Address {
 	
 	public void addPerson(Person person) {
 		this.persons.add(person);
+	}
+	
+	public void removePerson(Person person) {
+		this.persons.remove(person);
 	}
 
 	@Override

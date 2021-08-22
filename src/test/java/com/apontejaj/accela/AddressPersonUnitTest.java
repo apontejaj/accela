@@ -52,7 +52,6 @@ public class AddressPersonUnitTest {
 		
 		Address a1 = new Address("5th Av", "New York", "NY", "123456");
 		
-		a1.addPerson(person);
 		person.addAddress(a1);
 		
 		a1 = addressRepository.save(a1);
@@ -85,6 +84,7 @@ public class AddressPersonUnitTest {
 		personRepository.save(person);
 
 		assertThat(person.getAddresses()).hasSize(0);
+
 		assertThat(addressRepository.count()).isEqualTo(0);
 
 	}
