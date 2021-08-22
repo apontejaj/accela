@@ -47,6 +47,10 @@ public class Runner implements CommandLineRunner {
 		
 	}
 	
+	/**
+	 * Redirecting the program to the user selection
+	 * while validating user input in main menu.
+	 */
 	private void validationLoop() {
 		
 		String selection = "";
@@ -81,8 +85,7 @@ public class Runner implements CommandLineRunner {
 					System.out.println(person);
 				}
 				
-			} 
-			else {
+			} else {
 				System.out.println("\n--------------------------------");
 				System.out.println("| Please, try a valid selection |");
 				System.out.println("--------------------------------");
@@ -93,6 +96,10 @@ public class Runner implements CommandLineRunner {
 		
 	}
 	
+	/**
+	 * User Menu
+	 * @return user selection
+	 */
 	private String menu() {
 
 		String selection;
@@ -113,7 +120,9 @@ public class Runner implements CommandLineRunner {
 	}
 	
 	
-	
+	/**
+	 * Saving a new person in the DB
+	 */
 	private void newPerson() {
 		
 		String[] names = getPersonNames();
@@ -123,6 +132,10 @@ public class Runner implements CommandLineRunner {
 		
 	}
 	
+	/**
+	 * Reading integer id's from user while validating
+	 * @return id
+	 */
 	private Integer getId() {
 		
 		int id;
@@ -142,6 +155,10 @@ public class Runner implements CommandLineRunner {
 
 	}
 	
+	/**
+	 * Getting person details from user
+	 * @return array of user details
+	 */
 	private String[] getPersonNames() {
 		System.out.println("\nType in the first name:");
 		String firstName = input.next();
@@ -153,6 +170,10 @@ public class Runner implements CommandLineRunner {
 		
 	}
 	
+	/**
+	 * Getting address details from user
+	 * @return array of address details
+	 */
 	private String[] getAddressDetails() {
 		System.out.println("\nType in the Street:");
 		String street = input.next();
@@ -168,6 +189,10 @@ public class Runner implements CommandLineRunner {
 		
 	}
 	
+	/**
+	 * Editing person in the DB
+	 * @param id of the user to be updated
+	 */
 	private void editPerson(Integer id) {
 
 		Optional<Person> record = personRepository.findById(id);
@@ -188,6 +213,10 @@ public class Runner implements CommandLineRunner {
 		
 	}
 	
+	/**
+	 * Deleting a person from the DB
+	 * @param id of the person to be deleted.
+	 */
 	private void deletePerson(Integer id) {
 		
 		Optional<Person> record = personRepository.findById(id);
@@ -196,10 +225,17 @@ public class Runner implements CommandLineRunner {
 			return;
 		}
 		
+		for (Address address : record.get().getAddresses()){
+			address.removePerson(record.get());
+		}
 		personRepository.deleteById(id);
 		System.out.println("Person deleted!");
 	}
 	
+	/**
+	 * Adds address to a person already registered
+	 * @param id of the person
+	 */
 	private void addAddressToPerson(Integer id) {
 		
 		Optional<Person> record = personRepository.findById(id);
@@ -226,6 +262,10 @@ public class Runner implements CommandLineRunner {
 		
 	}
 	
+	/**
+	 * Edit a persons address
+	 * @param personId
+	 */
 	private void editPersonAddress(Integer personId) {
 		
 		Optional<Person> record = personRepository.findById(personId);
@@ -270,6 +310,10 @@ public class Runner implements CommandLineRunner {
 		
 	}
 	
+	/**
+	 * Delete a person's address
+	 * @param personId
+	 */
 	private void deletePersonAddress(Integer personId) {
 		Optional<Person> record = personRepository.findById(personId);
 		if(record.isEmpty()) {
