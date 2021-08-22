@@ -44,4 +44,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+
+### DB ###
 accela.db
+
