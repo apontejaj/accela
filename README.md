@@ -21,3 +21,6 @@ Alternatively you can use the [Spring Boot Maven plugin](https://docs.spring.io/
 mvnw.cmd spring-boot:run
 ```
 
+Running the application will create an SQLite file called accella.db. All data persistency will be stored there.
+
+
