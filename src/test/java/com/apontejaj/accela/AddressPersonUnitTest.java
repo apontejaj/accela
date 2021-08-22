@@ -48,7 +48,7 @@ public class AddressPersonUnitTest {
 	public void should_add_an_address_to_an_existing_person() {
 
 		Person person = new Person("Amilcar", "Aponte");
-		personRepository.save(person);
+		person = personRepository.save(person);
 		
 		Address a1 = new Address("5th Av", "New York", "NY", "123456");
 		a1.addPerson(person);
